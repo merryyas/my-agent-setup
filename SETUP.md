@@ -40,17 +40,27 @@ Node나 Python이 없으면 그 사실만 알리세요. 3단계(HWP)에서만 �
 
 ---
 
-## 1단계 — 스킬 5개 설치
+## 1단계 — 스킬 15개 설치
 
-이 저장소의 `skills/` 아래에 다섯 개 폴더가 있습니다. 각각 `SKILL.md`를 담고 있는 완결된 스킬입니다.
+이 저장소의 `skills/` 아래에 열다섯 개 폴더가 있습니다. 각각 `SKILL.md`를 담고 있는 완결된 스킬입니다.
 
 | 스킬 | 하는 일 |
 |---|---|
 | `brainstorming` | 만들기 전에 목적·제약·성공 기준을 먼저 파악하고 설계안을 비교 제시 |
 | `writing-plans` | 설계를 2~5분 단위 작업으로 분해하고 각 단계에 검증 방법을 붙임 |
+| `executing-plans` | 세운 계획을 순서대로 실행하고 진행 상황을 관리 |
+| `using-superpowers` | 나머지 스킬을 언제 쓰는지 안내하는 진입점 |
+| `test-driven-development` | 테스트를 먼저 쓰고 그다음 구현 |
 | `verification-before-completion` | "완료했다"고 말하기 전에 실제로 돌려보고 근거를 확인 |
 | `systematic-debugging` | 짐작으로 고치지 않고 원인을 단계적으로 추적 |
+| `requesting-code-review` | 코드 리뷰를 받을 수 있게 변경분을 정리 |
+| `receiving-code-review` | 받은 리뷰 지적을 걸러서 반영 |
+| `using-git-worktrees` | 작업별로 worktree를 분리 |
+| `finishing-a-development-branch` | 브랜치를 정리하고 마무리 |
+| `dispatching-parallel-agents` | 독립적인 일을 여러 에이전트에 나눠 실행 |
+| `subagent-driven-development` | 계획의 각 작업을 서브에이전트로 구현·리뷰 |
 | `frontend-design` | UI를 만들 때 템플릿 같지 않은 의도적 디자인 판단 |
+| `writing-skills` | 스킬 자체를 만드는 법 |
 
 **설치 방법**
 
@@ -78,34 +88,46 @@ New-Item -ItemType Directory -Force $HOME\.claude\skills
 Copy-Item -Recurse -Force skills\* $HOME\.claude\skills\
 ```
 
-복사 후 **몇 개 폴더가 들어갔는지 세어서** 보고하세요. 5개여야 합니다.
+복사 후 **몇 개 폴더가 들어갔는지 세어서** 보고하세요. 15개여야 합니다.
 
 ⚠️ 복사가 끝나면 사용자에게 **도구를 완전히 껐다가 다시 켜라고** 안내하세요. 재시작 전에는 인식되지 않습니다.
 
 ---
 
-## 2단계 — Superpowers 플러그인 ⚠️
+## 2단계 — Superpowers 플러그인 (선택, 대개 건너뜀)
 
-이건 슬래시 명령이라 **에이전트가 대신 칠 수 없습니다.** 사용자에게 안내만 하세요.
+**먼저 알아둘 것: 1단계로 이미 끝났습니다.** 이 저장소의 `skills/`에는 Superpowers 스킬이
+**전부(14개)** 들어 있습니다. 플러그인을 따로 깔지 않아도 다 동작합니다.
 
-실행 중인 도구에 맞는 것 하나만 알려주세요:
+플러그인으로 깔면 얻는 건 두 가지뿐입니다 — **자동 업데이트**, 그리고 **세션 시작 훅**.
 
-| 도구 | 사용자가 채팅창에 칠 명령 |
-|---|---|
-| Cursor | `/add-plugin superpowers` |
-| Claude Code | `/plugin install superpowers@claude-plugins-official` |
-| Gemini CLI | `gemini extensions install https://github.com/obra/superpowers` |
-| Codex CLI | `/plugins` → superpowers 검색 → Install |
+### ⚠️ 대부분의 환경에서는 이 단계가 불가능합니다
 
-**함께 전달할 내용**
+실제로 확인된 것 (2026-08 기준):
 
-- Superpowers는 세션 시작 훅으로 **매번 자동으로 걸립니다.** 따로 부를 필요가 없습니다.
-- 대신 간단한 요청에도 설계 절차가 끼어들 수 있습니다. 건너뛰려면 "설계 단계 생략하고 바로 해줘"라고 말하면 됩니다.
+- **Claude 데스크톱 앱 / Cowork** — `/plugin` 명령 자체가 없습니다. "이 환경에서 사용할 수 없습니다"라고 거부됩니다. 플러그인 검색을 해도 superpowers가 나오지 않습니다.
+- **Claude Code (터미널 CLI)** — 여기서는 됩니다: `/plugin install superpowers@claude-plugins-official`
+- Cursor `/add-plugin superpowers` · Gemini CLI `gemini extensions install https://github.com/obra/superpowers` · Codex CLI `/plugins` → 검색 → Install
+
+**`/plugin`이 안 되면 그냥 건너뛰세요.** 1단계로 이미 전부 들어갔으니 잃는 게 거의 없습니다.
+사용자에게 "플러그인은 이 환경에서 안 되지만 스킬은 전부 설치됐다"고 한 줄로 알리고 넘어가면 됩니다.
+
+### 훅이 없으면 뭐가 달라지나
+
+플러그인의 세션 시작 훅은 매 대화마다 `using-superpowers`를 자동으로 띄웁니다.
+파일로만 설치하면 그게 없으므로, 스킬은 **설명이 맞을 때만** 걸립니다.
+
+이건 손해가 아닙니다. 훅이 있으면 간단한 요청에도 설계 절차가 끼어듭니다.
+설계 절차를 명시적으로 쓰고 싶으면 이렇게 부르면 됩니다:
+
+```
+using-superpowers 스킬 보고 이 작업에 뭐가 맞는지 골라줘
+```
+
+### 플러그인을 설치하기로 했다면
+
+- 1단계에서 넣은 14개와 **중복**됩니다. 플러그인 설치가 확인되면 `frontend-design`만 남기고 나머지 14개는 설치 경로에서 지우세요.
 - 기관·회사 환경이라면 외부 통신을 끄는 편이 낫습니다: 환경변수 `SUPERPOWERS_DISABLE_TELEMETRY=1`
-
-> 참고: 1단계에서 설치한 brainstorming, writing-plans, verification-before-completion, systematic-debugging은 Superpowers에서 가져온 것입니다. 2단계로 Superpowers 본체를 설치하면 **중복**됩니다.
-> Cursor·Claude Code를 쓰면 2단계만 하고 1단계의 그 네 개는 지워도 됩니다. 1단계는 Superpowers를 설치할 수 없는 환경(Claude Desktop 등)을 위한 것입니다.
-> 어느 쪽으로 할지 **사용자에게 물어보고** 진행하세요.
 
 ---
 
@@ -181,8 +203,13 @@ git push
 
 | 스킬 | 출처 | 라이선스 |
 |---|---|---|
-| brainstorming, writing-plans, verification-before-completion, systematic-debugging | [obra/superpowers](https://github.com/obra/superpowers) | MIT |
-| frontend-design | Anthropic | Apache 2.0 (`skills/frontend-design/LICENSE.txt`) |
+| `frontend-design` | Anthropic | Apache 2.0 (`skills/frontend-design/LICENSE.txt`) |
+| 나머지 14개 전부 | [obra/superpowers](https://github.com/obra/superpowers) | MIT |
 | hwp (3단계) | [DoHyun468/claw-hwp](https://github.com/DoHyun468/claw-hwp) | MIT |
 
-`brainstorming`은 원본에서 로컬 브라우저 서버가 필요한 시각 도우미 기능을 제거했습니다(외부 통신 포함). `systematic-debugging`은 개발용 테스트 파일을 정리했습니다. 그 외 내용은 원본 그대로입니다.
+**원본과 다른 점** — 두 스킬만 손댔고, 나머지 12개는 원본 그대로입니다.
+
+- `brainstorming` — 로컬 브라우저 서버가 필요한 시각 도우미를 제거했습니다(`scripts/`, `visual-companion.md`). 외부 통신이 포함돼 있어 기관 환경에 맞지 않았습니다. SKILL.md의 해당 절은 "인라인으로 그려서 보여주라"로 바꿨습니다.
+- `systematic-debugging` — 원본에 섞여 있던 개발용 테스트 파일(`CREATION-LOG.md`, `test-*.md`)을 뺐습니다. SKILL.md는 원본과 동일합니다.
+
+> 원본을 최신으로 따라갈 때 이 두 개는 그냥 덮어쓰지 말고 위 변경을 다시 적용하세요.

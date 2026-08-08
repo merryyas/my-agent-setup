@@ -18,15 +18,44 @@ https://github.com/merryyas/my-agent-setup 의 SETUP.md 를 읽고 그대로 설
 
 ## 담긴 것
 
+스킬 15개. Superpowers 14개 전부와 Anthropic의 frontend-design 하나입니다.
+
+**설계·계획**
+
 | 스킬 | 하는 일 |
 |---|---|
 | brainstorming | 만들기 전에 목적·제약·성공 기준부터 정리 |
 | writing-plans | 작업을 잘게 쪼개고 검증 방법까지 명시 |
+| executing-plans | 세운 계획을 순서대로 실행하고 진행 상황을 관리 |
+| using-superpowers | 나머지 스킬을 언제 쓰는지 안내하는 진입점 |
+
+**작성·검증**
+
+| 스킬 | 하는 일 |
+|---|---|
+| test-driven-development | 테스트를 먼저 쓰고 그다음 구현 |
 | verification-before-completion | 완료 주장 전에 실제로 확인 |
 | systematic-debugging | 짐작 대신 원인 추적 |
-| frontend-design | 템플릿 같지 않은 UI 디자인 판단 |
+| requesting-code-review | 코드 리뷰를 받을 수 있게 변경분을 정리 |
+| receiving-code-review | 받은 리뷰 지적을 걸러서 반영 |
 
-HWP 문서 스킬과 Superpowers 플러그인은 파일로 담지 않고 SETUP.md가 설치 방법을 안내합니다.
+**협업·git**
+
+| 스킬 | 하는 일 |
+|---|---|
+| using-git-worktrees | 작업별로 worktree를 분리 |
+| finishing-a-development-branch | 브랜치를 정리하고 마무리 |
+| dispatching-parallel-agents | 독립적인 일을 여러 에이전트에 나눠 실행 |
+| subagent-driven-development | 계획의 각 작업을 서브에이전트로 구현·리뷰 |
+
+**기타**
+
+| 스킬 | 하는 일 |
+|---|---|
+| frontend-design | 템플릿 같지 않은 UI 디자인 판단 |
+| writing-skills | 스킬 자체를 만드는 법 |
+
+HWP 문서 스킬은 용량 때문에 파일로 담지 않았습니다. SETUP.md가 설치 방법을 안내합니다.
 
 ## 이 저장소를 처음 만들 때
 
