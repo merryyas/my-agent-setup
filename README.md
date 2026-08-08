@@ -1,6 +1,8 @@
 # my-agent-setup
 
-여러 PC에서 쓰는 AI 에이전트 스킬 모음. 한 번 올려두고, 새 PC에서는 URL 하나로 설치합니다.
+여러 PC에서 쓰는 AI 에이전트 스킬 모음. 한 번 올려두고, 새 PC에서는 **URL 한 줄로** 설치합니다.
+
+집 PC(Claude Code)와 사무실 PC(Cursor)가 같은 스킬을 쓰도록 만든 저장소입니다.
 
 ## 새 PC에서 설치하기
 
@@ -16,18 +18,29 @@ https://github.com/merryyas/my-agent-setup 의 SETUP.md 를 읽고 그대로 설
 이 폴더의 SETUP.md 를 읽고 그대로 설치해줘
 ```
 
-## 담긴 것
+스킬 22개가 전부 파일로 들어 있어서 **인터넷 없이도 설치됩니다.** (HWP만 예외 — 원본에서 받습니다.)
 
-스킬 15개. Superpowers 14개 전부와 Anthropic의 frontend-design 하나입니다.
+## 설치 경로가 하나입니다
 
-**설계·계획**
+Cursor는 `~/.claude/skills/` 를 레거시 호환 경로로 읽습니다. 그래서 **두 PC가 같은 경로를 씁니다.**
+
+| 도구 | 읽는 경로 |
+|---|---|
+| Cursor | `~/.cursor/skills/`, `~/.claude/skills/`, `<프로젝트>/.cursor/skills/` |
+| Claude Code · 데스크톱 앱 | `~/.claude/skills/`, `<프로젝트>/.claude/skills/` |
+
+## 담긴 것 — 스킬 22개
+
+**설계·실행**
 
 | 스킬 | 하는 일 |
 |---|---|
 | brainstorming | 만들기 전에 목적·제약·성공 기준부터 정리 |
 | writing-plans | 작업을 잘게 쪼개고 검증 방법까지 명시 |
-| executing-plans | 세운 계획을 순서대로 실행하고 진행 상황을 관리 |
+| executing-plans | 세운 계획을 순서대로 실행하고 진행 상황 관리 |
 | using-superpowers | 나머지 스킬을 언제 쓰는지 안내하는 진입점 |
+| subagent-driven-development | 계획의 각 작업을 서브에이전트로 구현·리뷰 |
+| dispatching-parallel-agents | 독립적인 일을 여러 에이전트에 나눠 실행 |
 
 **작성·검증**
 
@@ -36,40 +49,39 @@ https://github.com/merryyas/my-agent-setup 의 SETUP.md 를 읽고 그대로 설
 | test-driven-development | 테스트를 먼저 쓰고 그다음 구현 |
 | verification-before-completion | 완료 주장 전에 실제로 확인 |
 | systematic-debugging | 짐작 대신 원인 추적 |
-| requesting-code-review | 코드 리뷰를 받을 수 있게 변경분을 정리 |
-| receiving-code-review | 받은 리뷰 지적을 걸러서 반영 |
+| requesting-code-review | 리뷰받을 수 있게 변경분을 정리 |
+| receiving-code-review | 받은 지적을 걸러서 반영 |
+| webapp-testing | 웹앱을 실제로 띄워서 동작 확인 |
 
-**협업·git**
+**git·도구**
 
 | 스킬 | 하는 일 |
 |---|---|
-| using-git-worktrees | 작업별로 worktree를 분리 |
-| finishing-a-development-branch | 브랜치를 정리하고 마무리 |
-| dispatching-parallel-agents | 독립적인 일을 여러 에이전트에 나눠 실행 |
-| subagent-driven-development | 계획의 각 작업을 서브에이전트로 구현·리뷰 |
+| using-git-worktrees | 작업별로 worktree 분리 |
+| finishing-a-development-branch | 브랜치 정리하고 마무리 |
+| mcp-builder | MCP 서버 설계·구현 |
+| claude-api | Claude API 레퍼런스 (모델·가격·툴 사용) |
+| writing-skills | 스킬 만드는 법 (superpowers 관점) |
+| skill-creator | 스킬 만드는 법 (Anthropic 관점) |
 
-**기타**
+**문서·UI**
 
 | 스킬 | 하는 일 |
 |---|---|
 | frontend-design | 템플릿 같지 않은 UI 디자인 판단 |
-| writing-skills | 스킬 자체를 만드는 법 |
+| web-artifacts-builder | React·Tailwind 기반 복합 아티팩트 |
+| theme-factory | 결과물에 일관된 테마 입히기 |
+| internal-comms | 사내 공지·보고서·FAQ 작성 |
 
-HWP 문서 스킬은 용량 때문에 파일로 담지 않았습니다. SETUP.md가 설치 방법을 안내합니다.
+## 목록 파일 — `sources.json`
 
-## 이 저장소를 처음 만들 때
+무엇이 파일로 들어 있고, 무엇을 밖에서 받아야 하고, **무엇을 왜 뺐는지**가 적혀 있습니다.
+에이전트가 SETUP.md와 같이 읽습니다.
 
-```bash
-git init
-git add .
-git commit -m "initial: agent skills setup"
-git branch -M main
-git remote add origin https://github.com/merryyas/my-agent-setup.git
-git push -u origin main
-```
-
-GitHub에서 저장소를 먼저 하나 만들어야 합니다(New repository → 이름 `my-agent-setup` → Public 또는 Private).
-Private으로 두면 새 PC에서 설치할 때 로그인이 필요합니다. 민감한 내용이 없으니 Public이 편합니다.
+- `bundled` — `skills/` 에 담긴 것. 출처·라이선스·내가 고친 부분까지
+- `external` — HWP처럼 설치 시점에 원본에서 받는 것, 플러그인, MCP 서버
+- `excluded` — 일부러 뺀 것과 **그 이유**
+- `wishlist` — 아직 없어서 직접 만들어야 하는 것
 
 ## 스킬을 추가하고 싶을 때
 
@@ -86,7 +98,10 @@ description: 언제 이 스킬을 써야 하는지 한 문장. 이 설명을 보
 여기에 작업 지침을 씁니다.
 ```
 
-넣고 나서 `git push` 하면 다른 PC에서도 `git pull` 로 따라옵니다.
+그다음 `sources.json` 의 `bundled.groups` 에 이름을 추가하고 `git push` 하세요.
+다른 PC에서는 `git pull` 로 따라옵니다.
+
+담을 수 없는 것(라이선스, 용량, 별도 설치)은 `external` 에 주소와 이유를 적으세요.
 
 ## 안전에 관해
 
@@ -94,6 +109,12 @@ description: 언제 이 스킬을 써야 하는지 한 문장. 이 설명을 보
 **본인이 관리하는 저장소에만 이 방식을 쓰세요.** 남의 저장소 URL을 에이전트에게 그대로 넘기면
 그 안의 지침이 무엇이든 실행될 수 있습니다.
 
+스킬을 추가할 때도 같습니다. 스킬은 에이전트에게 주는 지시문이고, 에이전트는 당신의 PC에서
+파일을 읽고 명령을 실행합니다. 스킬 3,000개짜리 목록 같은 걸 통째로 넣지 마세요.
+
 ## 라이선스
 
-각 스킬의 원래 라이선스를 따릅니다. 자세한 출처는 SETUP.md 맨 아래를 보세요.
+superpowers 계열은 MIT, Anthropic 계열은 Apache 2.0입니다. 자세한 출처는 SETUP.md 맨 아래를 보세요.
+
+`anthropics/skills` 의 **docx·pdf·pptx·xlsx 는 재배포가 금지되어 담지 않았습니다.**
+이유는 `sources.json` 의 `excluded` 에 있습니다.
