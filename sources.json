@@ -6,7 +6,7 @@
     "excluded 아래 = 일부러 뺀 것. 이유가 적혀 있으니 다시 넣기 전에 읽으세요."
   ],
   "version": 2,
-  "updated": "2026-08-08",
+  "updated": "2026-09-04",
 
   "install_paths": {
     "_note": "Cursor는 ~/.claude/skills 도 레거시 호환 경로로 읽습니다. 그래서 두 PC가 같은 경로를 써도 됩니다.",
@@ -17,7 +17,7 @@
 
   "bundled": {
     "_note": "skills/ 에 파일로 들어 있음. SETUP.md 1단계에서 통째로 복사합니다.",
-    "count": 22,
+    "count": 34,
     "groups": {
       "superpowers": {
         "upstream": "https://github.com/obra/superpowers",
@@ -43,6 +43,25 @@
           "frontend-design", "mcp-builder", "claude-api", "webapp-testing",
           "web-artifacts-builder", "skill-creator", "theme-factory", "internal-comms"
         ]
+      },
+      "emilkowalski": {
+        "upstream": "https://github.com/emilkowalski/skills",
+        "license": "MIT",
+        "license_verified": "2026-09-04, 저장소 루트 LICENSE 확인 (MIT, © 2026 Emil Kowalski). 원본은 스킬 폴더별 LICENSE가 없어서 재배포 시 고지가 남도록 12개 폴더에 각각 복사해 넣음.",
+        "author_note": "Emil Kowalski — Sonner·Vaul 제작자. 웹 애니메이션과 UI 폴리시 중심.",
+        "skills": [
+          "animate", "animate-expo", "animation-vocabulary", "apple-design",
+          "ask-sonner", "emil-design-eng", "find-animation-opportunities",
+          "improve-animations", "pick-ui-library", "prototype",
+          "review-animations", "write-swift"
+        ],
+        "local_modifications": {},
+        "explicit_invocation_only": {
+          "_note": "이 3개는 SKILL.md 프론트매터에 disable-model-invocation: true 가 있어 에이전트가 알아서 꺼내 쓰지 않고, 사용 가능 스킬 목록에도 나오지 않습니다. 사용자가 이름을 직접 불러야 켜집니다. 원저자 의도이므로 고치지 마세요.",
+          "skills": ["review-animations", "pick-ui-library", "prototype"]
+        },
+        "contents_note": "전부 마크다운 문서(SKILL.md + 보조 문서)뿐. 실행 스크립트나 외부 통신 코드 없음 — 2026-09-04 확인.",
+        "installed_via": "npx skills add emilkowalski/skills -g --copy -a claude-code -s '*' -y (vercel-labs/skills CLI, MIT)"
       }
     }
   },

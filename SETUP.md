@@ -46,9 +46,9 @@ Node·Python이 없으면 그 사실만 알리세요. 1단계는 없어도 됩�
 
 ---
 
-## 1단계 — 스킬 22개 설치 (핵심)
+## 1단계 — 스킬 34개 설치 (핵심)
 
-이 저장소의 `skills/` 아래 스물두 개 폴더를 **통째로** 설치 경로에 복사합니다.
+이 저장소의 `skills/` 아래 서른네 개 폴더를 **통째로** 설치 경로에 복사합니다.
 전부 파일로 들어 있으므로 **인터넷 없이도 됩니다.**
 
 ```bash
@@ -65,10 +65,10 @@ Copy-Item -Recurse -Force skills\* $HOME\.claude\skills\
 
 **설치 후 반드시 확인하고 숫자를 보고하세요:**
 
-1. 폴더가 **22개**인지 세기
+1. 폴더가 **34개**인지 세기
 2. 각 폴더에 `SKILL.md`가 실제로 있는지 확인 (하나라도 없으면 실패로 보고)
 
-담긴 스킬 목록은 [`sources.json`](sources.json)의 `bundled.groups`에 있습니다. 크게 세 갈래입니다.
+담긴 스킬 목록은 [`sources.json`](sources.json)의 `bundled.groups`에 있습니다. 크게 다섯 갈래입니다.
 
 | 갈래 | 내용 |
 |---|---|
@@ -76,6 +76,13 @@ Copy-Item -Recurse -Force skills\* $HOME\.claude\skills\
 | 작성·검증 | test-driven-development, verification-before-completion, systematic-debugging, requesting-code-review, receiving-code-review, webapp-testing |
 | git·도구 | using-git-worktrees, finishing-a-development-branch, mcp-builder, claude-api, writing-skills, skill-creator |
 | 문서·UI | frontend-design, web-artifacts-builder, theme-factory, internal-comms |
+| 애니메이션·모션 | animate, animate-expo, animation-vocabulary, apple-design, find-animation-opportunities, improve-animations, review-animations |
+| UI 판단·프로토타입 | emil-design-eng, pick-ui-library, prototype, ask-sonner, write-swift |
+
+⚠️ **`review-animations` · `pick-ui-library` · `prototype` 3개는 사용 가능 스킬 목록에
+나오지 않는 것이 정상입니다.** 프론트매터에 `disable-model-invocation: true` 가 있어
+사용자가 이름을 직접 불러야만(`prototype 스킬로 …`) 켜집니다. 5단계 검증에서 목록에
+안 보인다고 설치 실패로 보고하지 마세요. **파일 개수로 확인하세요.**
 
 ⚠️ 복사가 끝나면 사용자에게 안내하세요:
 - **Claude Code / 데스크톱 앱** — 완전히 껐다가 다시 켜야 인식됩니다.
@@ -162,12 +169,13 @@ MCP 서버는 파일 복사가 아니라 **설정**으로 붙습니다. [`source
 
 설치했다고 말하기 전에 **실제로 확인**하세요.
 
-1. **파일 확인** — 설치 경로의 폴더 수를 세고, 각 폴더에 `SKILL.md`가 있는지 확인합니다. 1단계만 했으면 22개, HWP까지면 23개입니다.
-2. **인식 확인** ⚠️ — 사용자에게 (Claude Code면 재시작 후) *"지금 쓸 수 있는 스킬 알려줘"* 라고 물어보게 하세요. 설치한 이름이 목록에 나와야 합니다.
+1. **파일 확인** — 설치 경로의 폴더 수를 세고, 각 폴더에 `SKILL.md`가 있는지 확인합니다. 1단계만 했으면 34개, HWP까지면 35개입니다.
+2. **인식 확인** ⚠️ — 사용자에게 (Claude Code면 재시작 후) *"지금 쓸 수 있는 스킬 알려줘"* 라고 물어보게 하세요. 설치한 이름이 목록에 나와야 합니다. 단 위에 적은 3개(`review-animations`, `pick-ui-library`, `prototype`)는 **목록에 안 나오는 게 정상**입니다.
 3. **동작 확인** — 다음 중 하나를 실제로 시켜보게 안내합니다:
    - `frontend-design` → "간단한 소개 페이지 디자인 방향을 잡아줘"
    - `brainstorming` → "새 기능 하나 만들려고 하는데 같이 정리하자"
    - `mcp-builder` → "MCP 서버 하나 만들려는데 구조 잡아줘"
+   - `animate` → "이 버튼에 눌리는 느낌 애니메이션 넣어줘"
    - `hwp` → 아무 .hwp 파일을 주고 "표 구조 그대로 읽어줘"
 
 **최종 보고 형식** — 설치된 것 / 건너뛴 것 / 사용자가 아직 해야 할 것, 세 줄로 정리하세요.
@@ -191,6 +199,7 @@ MCP 서버는 파일 복사가 아니라 **설정**으로 붙습니다. [`source
 |---|---|---|
 | superpowers 계열 14개 | [obra/superpowers](https://github.com/obra/superpowers) | MIT |
 | frontend-design, mcp-builder, claude-api, webapp-testing, web-artifacts-builder, skill-creator, theme-factory, internal-comms | [anthropics/skills](https://github.com/anthropics/skills) | Apache 2.0 (각 폴더 `LICENSE.txt`) |
+| 애니메이션·UI 계열 12개 (animate, animate-expo, animation-vocabulary, apple-design, ask-sonner, emil-design-eng, find-animation-opportunities, improve-animations, pick-ui-library, prototype, review-animations, write-swift) | [emilkowalski/skills](https://github.com/emilkowalski/skills) | MIT (각 폴더 `LICENSE`) |
 | hwp (2단계) | [DoHyun468/claw-hwp](https://github.com/DoHyun468/claw-hwp) | MIT |
 
 **원본과 다른 점** — 두 스킬만 손댔고 나머지는 원본 그대로입니다.

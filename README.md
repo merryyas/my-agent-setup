@@ -18,7 +18,7 @@ https://github.com/merryyas/my-agent-setup 의 SETUP.md 를 읽고 그대로 설
 이 폴더의 SETUP.md 를 읽고 그대로 설치해줘
 ```
 
-스킬 22개가 전부 파일로 들어 있어서 **인터넷 없이도 설치됩니다.** (HWP만 예외 — 원본에서 받습니다.)
+스킬 34개가 전부 파일로 들어 있어서 **인터넷 없이도 설치됩니다.** (HWP만 예외 — 원본에서 받습니다.)
 
 ## 설치 경로가 하나입니다
 
@@ -29,7 +29,7 @@ Cursor는 `~/.claude/skills/` 를 레거시 호환 경로로 읽습니다. 그�
 | Cursor | `~/.cursor/skills/`, `~/.claude/skills/`, `<프로젝트>/.cursor/skills/` |
 | Claude Code · 데스크톱 앱 | `~/.claude/skills/`, `<프로젝트>/.claude/skills/` |
 
-## 담긴 것 — 스킬 22개
+## 담긴 것 — 스킬 34개
 
 **설계·실행**
 
@@ -73,6 +73,34 @@ Cursor는 `~/.claude/skills/` 를 레거시 호환 경로로 읽습니다. 그�
 | theme-factory | 결과물에 일관된 테마 입히기 |
 | internal-comms | 사내 공지·보고서·FAQ 작성 |
 
+**애니메이션·모션**
+
+| 스킬 | 하는 일 |
+|---|---|
+| animate | 웹 애니메이션을 판단 순서대로 설계하고 구현까지 |
+| animate-expo | React Native·Expo 애니메이션 (Reanimated·제스처·햅틱) |
+| animation-vocabulary | "그 통통 튀는 거" 같은 설명을 정확한 용어로 역검색 |
+| apple-design | 애플식 인터페이스·물리적 모션을 웹으로 옮기기 |
+| find-animation-opportunities | 움직여야 하는데 안 움직이는 곳 찾기 (제안만, 구현 안 함) |
+| improve-animations | 코드베이스 모션 전체 감사 + 우선순위 실행 계획 |
+| review-animations ⚠️ | 모션 코드를 높은 기준으로 리뷰. **기본이 지적이고 통과는 어렵다** |
+
+**UI 판단·프로토타입**
+
+| 스킬 | 하는 일 |
+|---|---|
+| emil-design-eng | UI 폴리시와 "느낌 좋은 소프트웨어"의 디테일 철학 |
+| pick-ui-library ⚠️ | 숫자·OTP 입력, 차트, 커맨드 메뉴, 가상 스크롤, 드래그앤드롭, 토스트, 상태관리, 스타일링 등에 쓸 라이브러리를 미리 골라둔 목록에서 추천 |
+| prototype ⚠️ | 설명한 UI를 **서로 확실히 다른 여러 버전으로 만들어** 비주얼 피커에 늘어놓고, 넘겨보다 마음에 드는 걸 확정 |
+| ask-sonner | Sonner 토스트 라이브러리 사용·문제 해결 |
+| write-swift | 모던 Swift 작성 (Swift 6 동시성·값 타입·테스팅) |
+
+> ⚠️ 표시한 **`review-animations` · `pick-ui-library` · `prototype` 세 개는
+> `disable-model-invocation: true`** 라서 에이전트가 알아서 꺼내 쓰지 않습니다.
+> 사용 가능 스킬 목록에도 안 나옵니다. **이름을 직접 불러야 켜집니다** —
+> 예: `prototype 스킬로 상단 메뉴바 여러 버전 만들어줘`.
+> 고장이 아니라 원저자가 의도한 동작입니다.
+
 ## 목록 파일 — `sources.json`
 
 무엇이 파일로 들어 있고, 무엇을 밖에서 받아야 하고, **무엇을 왜 뺐는지**가 적혀 있습니다.
@@ -114,7 +142,8 @@ description: 언제 이 스킬을 써야 하는지 한 문장. 이 설명을 보
 
 ## 라이선스
 
-superpowers 계열은 MIT, Anthropic 계열은 Apache 2.0입니다. 자세한 출처는 SETUP.md 맨 아래를 보세요.
+superpowers 계열과 emilkowalski 계열은 MIT, Anthropic 계열은 Apache 2.0입니다.
+자세한 출처는 SETUP.md 맨 아래를 보세요.
 
 `anthropics/skills` 의 **docx·pdf·pptx·xlsx 는 재배포가 금지되어 담지 않았습니다.**
 이유는 `sources.json` 의 `excluded` 에 있습니다.
