@@ -96,10 +96,19 @@ Cursor는 `~/.claude/skills/` 를 레거시 호환 경로로 읽습니다. 그�
 | write-swift | 모던 Swift 작성 (Swift 6 동시성·값 타입·테스팅) |
 
 > ⚠️ 표시한 **`review-animations` · `pick-ui-library` · `prototype` 세 개는
-> `disable-model-invocation: true`** 라서 에이전트가 알아서 꺼내 쓰지 않습니다.
-> 사용 가능 스킬 목록에도 안 나옵니다. **이름을 직접 불러야 켜집니다** —
-> 예: `prototype 스킬로 상단 메뉴바 여러 버전 만들어줘`.
-> 고장이 아니라 원저자가 의도한 동작입니다.
+> `disable-model-invocation: true`** 라서 **에이전트가 아예 호출할 수 없습니다.**
+> 사용 가능 스킬 목록에도 안 나옵니다. 고장이 아니라 원저자가 의도한 동작입니다.
+>
+> **사용자가 슬래시 명령을 직접 입력해야 합니다:**
+>
+> ```
+> /prototype 상단 메뉴바 여러 버전 만들어줘
+> ```
+>
+> 채팅으로 `prototype 스킬로 만들어줘` 라고 부탁하는 건 **안 됩니다.** 그러면
+> 에이전트가 대신 호출하려다 거부당합니다 (`Skill … cannot be used with Skill tool
+> due to disable-model-invocation`). 반드시 `/` 로 시작하는 명령을 직접 치세요.
+> (Claude 데스크톱 앱에서 2026-09-05 확인. Cursor 동작은 별도 확인 필요.)
 
 ## 목록 파일 — `sources.json`
 

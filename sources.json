@@ -57,7 +57,8 @@
         ],
         "local_modifications": {},
         "explicit_invocation_only": {
-          "_note": "이 3개는 SKILL.md 프론트매터에 disable-model-invocation: true 가 있어 에이전트가 알아서 꺼내 쓰지 않고, 사용 가능 스킬 목록에도 나오지 않습니다. 사용자가 이름을 직접 불러야 켜집니다. 원저자 의도이므로 고치지 마세요.",
+          "_note": "이 3개는 SKILL.md 프론트매터에 disable-model-invocation: true 가 있어 에이전트가 아예 호출할 수 없고, 사용 가능 스킬 목록에도 나오지 않습니다. 원저자 의도이므로 고치지 마세요.",
+          "how_to_invoke": "사용자가 슬래시 명령을 직접 입력해야 합니다 (예: /prototype 상단 메뉴바 여러 버전 만들어줘). 채팅으로 '프로토타입 스킬 써줘' 라고 부탁하면 에이전트가 대신 호출하려다 'Skill ... cannot be used with Skill tool due to disable-model-invocation' 으로 거부됩니다. 2026-09-05 Claude 데스크톱 앱에서 확인. Cursor 동작은 미확인.",
           "skills": ["review-animations", "pick-ui-library", "prototype"]
         },
         "contents_note": "전부 마크다운 문서(SKILL.md + 보조 문서)뿐. 실행 스크립트나 외부 통신 코드 없음 — 2026-09-04 확인.",
