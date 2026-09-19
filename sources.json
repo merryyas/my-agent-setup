@@ -6,7 +6,7 @@
     "excluded 아래 = 일부러 뺀 것. 이유가 적혀 있으니 다시 넣기 전에 읽으세요."
   ],
   "version": 2,
-  "updated": "2026-09-04",
+  "updated": "2026-09-19",
 
   "install_paths": {
     "_note": "Cursor는 ~/.claude/skills 도 레거시 호환 경로로 읽습니다. 그래서 두 PC가 같은 경로를 써도 됩니다.",
@@ -85,6 +85,25 @@
           "PDF·DOCX 변환 미지원."
         ],
         "note": "Claude 데스크톱 앱에는 anthropic-skills 플러그인으로 이미 들어 있음. Cursor 쪽에서만 필요."
+      },
+      {
+        "name": "ui-ux-pro-max",
+        "why": "UI/UX 설계 지능. 스타일 79개, 제품 팔레트 192개, 폰트 짝 74개, UX 지침 119개, 차트 25종, 스택 22개를 로컬 CSV에서 검색합니다. 아티팩트·웹 UI 만들 때 씁니다.",
+        "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+        "path_in_repo": ".claude/skills/ui-ux-pro-max",
+        "license": "MIT",
+        "requires": ["python>=3"],
+        "optional": true,
+        "excluded_from_bundle_reason": "3.4MB(대부분 data/*.csv). 저장소 skills/ 전체가 2.5MB라 통째로 담으면 두 배 이상이 됨. canvas-design 과 같은 이유로 external 로 둠.",
+        "local_modifications": {
+          "SKILL.md": "search.py 경로의 ${CLAUDE_PLUGIN_ROOT}/.claude/skills/ui-ux-pro-max/ 를 $HOME/.claude/skills/ui-ux-pro-max/ 로 치환(11군데). 플러그인이 아니라 스킬 폴더로 설치하므로 그 환경변수가 없음. bash·PowerShell 양쪽에서 $HOME 이 확장됨.",
+          "scripts/tests/": "개발용 테스트 제거."
+        },
+        "caveats": [
+          "같은 저장소에 banner-design, brand, design, design-system, slides, ui-styling 6개가 더 있음. 필요하면 같은 방식으로 받을 것. ui-styling 은 5.9MB.",
+          "순수 표준 라이브러리 파이썬이라 pip 설치가 필요 없고 외부 통신도 하지 않음 (2026-09-19 확인)."
+        ],
+        "verify": "python \"$HOME/.claude/skills/ui-ux-pro-max/scripts/search.py\" \"keyboard focus modal\" --domain ux"
       }
     ],
     "plugins": [

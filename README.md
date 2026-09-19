@@ -18,7 +18,7 @@ https://github.com/merryyas/my-agent-setup 의 SETUP.md 를 읽고 그대로 설
 이 폴더의 SETUP.md 를 읽고 그대로 설치해줘
 ```
 
-스킬 34개가 전부 파일로 들어 있어서 **인터넷 없이도 설치됩니다.** (HWP만 예외 — 원본에서 받습니다.)
+스킬 34개가 전부 파일로 들어 있어서 **인터넷 없이도 설치됩니다.** (HWP·UI/UX Pro Max 는 예외 — 용량 때문에 원본에서 받습니다.)
 
 ## 설치 경로가 하나입니다
 
@@ -116,7 +116,7 @@ Cursor는 `~/.claude/skills/` 를 레거시 호환 경로로 읽습니다. 그�
 에이전트가 SETUP.md와 같이 읽습니다.
 
 - `bundled` — `skills/` 에 담긴 것. 출처·라이선스·내가 고친 부분까지
-- `external` — HWP처럼 설치 시점에 원본에서 받는 것, 플러그인, MCP 서버
+- `external` — HWP·UI/UX Pro Max 처럼 설치 시점에 원본에서 받는 것, 플러그인, MCP 서버
 - `excluded` — 일부러 뺀 것과 **그 이유**
 - `wishlist` — 아직 없어서 직접 만들어야 하는 것
 

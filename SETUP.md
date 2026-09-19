@@ -26,8 +26,8 @@
 다음을 확인하고 사용자에게 **한 줄로** 보고하세요.
 
 - **어떤 도구인가**: Cursor / Claude Code (터미널 CLI) / Claude 데스크톱 앱·Cowork / 그 외
-- `node --version` — 18 이상? (3단계 HWP에만 필요)
-- `python --version` 또는 `python3 --version` — 3.9 이상? (3단계 HWP에만 필요)
+- `node --version` — 18 이상? (2단계 HWP에만 필요)
+- `python --version` 또는 `python3 --version` — 3.9 이상? (2단계 HWP에만 필요)
 - `git --version`
 
 Node·Python이 없으면 그 사실만 알리세요. 1단계는 없어도 됩니다.
@@ -94,12 +94,15 @@ Copy-Item -Recurse -Force skills\* $HOME\.claude\skills\
 
 ---
 
-## 2단계 — HWP 스킬 (선택, 한국어 문서용)
+## 2단계 — 외부에서 받는 선택 스킬
+
+라이선스상 담아도 되지만 **용량 때문에** 이 저장소에 파일로 넣지 않은 것들입니다.
+필요한 것만 골라서 원본에서 받으세요. 둘 다 건너뛰어도 1단계만으로 정상 동작합니다.
+
+### 2-1. HWP (한국어 문서용)
 
 한글 문서(.hwp / .hwpx)를 읽고 만들고 편집합니다. 한컴오피스 없이 동작합니다.
 **Node 18+ 와 Python 3.9+ 가 필요합니다.** 없으면 건너뛰고 그 사실을 알리세요.
-
-라이선스(MIT)상 담아도 되지만 용량 때문에 파일로 넣지 않았습니다. 원본에서 받으세요.
 
 ```bash
 git clone --depth 1 https://github.com/DoHyun468/claw-hwp /tmp/claw-hwp
@@ -123,6 +126,47 @@ Remove-Item -Recurse -Force $t
 - 표를 지켜야 하면 한컴오피스에서 `.hwpx`로 한 번 저장한 뒤 그 파일로 작업하세요.
 - 결과물은 반드시 한컴오피스에서 열어 확인해야 합니다.
 - PDF·DOCX 변환은 아직 지원하지 않습니다.
+
+### 2-2. UI/UX Pro Max (선택, UI 만들 때)
+
+UI/UX 설계 지능입니다. 스타일 79개, 제품 팔레트 192개, 폰트 짝 74개, UX 지침 119개,
+차트 25종, 스택 22개를 **로컬 CSV에서** 검색합니다. 외부 통신은 하지 않습니다.
+**Python 3 이 필요합니다.** 없으면 건너뛰고 그 사실을 알리세요.
+
+3.4MB라 저장소에 담지 않았습니다. 원본에서 받으세요.
+
+```bash
+git clone --depth 1 https://github.com/nextlevelbuilder/ui-ux-pro-max-skill /tmp/uipm
+cp -r /tmp/uipm/.claude/skills/ui-ux-pro-max ~/.claude/skills/
+rm -rf ~/.claude/skills/ui-ux-pro-max/scripts/tests /tmp/uipm
+sed -i 's|${CLAUDE_PLUGIN_ROOT}/.claude/skills/ui-ux-pro-max/|$HOME/.claude/skills/ui-ux-pro-max/|g' ~/.claude/skills/ui-ux-pro-max/SKILL.md
+```
+
+```powershell
+# Windows PowerShell
+$t = "$env:TEMP\uipm"
+git clone --depth 1 https://github.com/nextlevelbuilder/ui-ux-pro-max-skill $t
+Copy-Item -Recurse -Force "$t\.claude\skills\ui-ux-pro-max" "$HOME\.claude\skills\"
+Remove-Item -Recurse -Force "$HOME\.claude\skills\ui-ux-pro-max\scripts\tests", $t
+$f = "$HOME\.claude\skills\ui-ux-pro-max\SKILL.md"
+(Get-Content $f -Raw -Encoding UTF8).Replace('${CLAUDE_PLUGIN_ROOT}/.claude/skills/ui-ux-pro-max/', '$HOME/.claude/skills/ui-ux-pro-max/') | Set-Content $f -Encoding utf8
+```
+
+> **`sed` / `Replace` 줄을 빠뜨리지 마세요.** 원본 SKILL.md는 검색 스크립트 경로를
+> `${CLAUDE_PLUGIN_ROOT}` 로 적어 두는데, 플러그인이 아니라 스킬 폴더로 넣으면
+> 그 환경변수가 없어서 11군데 명령이 전부 실패합니다.
+
+**동작 확인:**
+
+```bash
+python "$HOME/.claude/skills/ui-ux-pro-max/scripts/search.py" "keyboard focus modal" --domain ux
+```
+
+검색 결과 3건이 나오면 정상입니다.
+
+**같은 저장소의 다른 스킬** — `banner-design`, `brand`, `design`, `design-system`,
+`slides`, `ui-styling` 6개가 더 있습니다. 필요하면 위 명령에서 폴더 이름만 바꿔 받으세요
+(`ui-styling` 은 5.9MB).
 
 ---
 
@@ -173,7 +217,7 @@ MCP 서버는 파일 복사가 아니라 **설정**으로 붙습니다. [`source
 
 설치했다고 말하기 전에 **실제로 확인**하세요.
 
-1. **파일 확인** — 설치 경로의 폴더 수를 세고, 각 폴더에 `SKILL.md`가 있는지 확인합니다. 1단계만 했으면 34개, HWP까지면 35개입니다.
+1. **파일 확인** — 설치 경로의 폴더 수를 세고, 각 폴더에 `SKILL.md`가 있는지 확인합니다. 1단계만 했으면 34개이고, 2단계에서 받은 선택 스킬 수만큼 늘어납니다(HWP·UI/UX Pro Max 둘 다면 36개).
 2. **인식 확인** ⚠️ — 사용자에게 (Claude Code면 재시작 후) *"지금 쓸 수 있는 스킬 알려줘"* 라고 물어보게 하세요. 설치한 이름이 목록에 나와야 합니다. 단 위에 적은 3개(`review-animations`, `pick-ui-library`, `prototype`)는 **목록에 안 나오는 게 정상**입니다.
 3. **동작 확인** — 다음 중 하나를 실제로 시켜보게 안내합니다:
    - `frontend-design` → "간단한 소개 페이지 디자인 방향을 잡아줘"
@@ -205,6 +249,7 @@ MCP 서버는 파일 복사가 아니라 **설정**으로 붙습니다. [`source
 | frontend-design, mcp-builder, claude-api, webapp-testing, web-artifacts-builder, skill-creator, theme-factory, internal-comms | [anthropics/skills](https://github.com/anthropics/skills) | Apache 2.0 (각 폴더 `LICENSE.txt`) |
 | 애니메이션·UI 계열 12개 (animate, animate-expo, animation-vocabulary, apple-design, ask-sonner, emil-design-eng, find-animation-opportunities, improve-animations, pick-ui-library, prototype, review-animations, write-swift) | [emilkowalski/skills](https://github.com/emilkowalski/skills) | MIT (각 폴더 `LICENSE`) |
 | hwp (2단계) | [DoHyun468/claw-hwp](https://github.com/DoHyun468/claw-hwp) | MIT |
+| ui-ux-pro-max (2단계) | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | MIT |
 
 **원본과 다른 점** — 두 스킬만 손댔고 나머지는 원본 그대로입니다.
 
